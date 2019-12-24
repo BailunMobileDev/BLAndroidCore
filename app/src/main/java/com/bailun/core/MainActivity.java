@@ -3,7 +3,10 @@ package com.bailun.core;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.text.HtmlCompat;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.bailun.core.http.HttpCallback;
@@ -17,22 +20,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final TextView textView = findViewById(R.id.text);
-        HttpRequestParam param = new HttpRequestParam("https://www.baidu.com", BLHttpDefine.Method.GET);
-        BLHttpUtils.getInstance().httpRequest(param, new HttpCallback() {
+        findViewById(R.id.btn_http).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(final String t) {
-                textView.setText(HtmlCompat.fromHtml(t, 0));
-            }
-
-            @Override
-            public void onError(int errCode, final String strErrMsg) {
-                textView.setText(strErrMsg);
-            }
-
-            @Override
-            public void onCompleted() {
-
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, HttpActivity.class));
             }
         });
     }
