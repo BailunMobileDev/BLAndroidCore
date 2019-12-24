@@ -7,8 +7,8 @@ import android.widget.TextView;
 
 import com.bailun.core.http.HttpCallback;
 import com.bailun.core.http.HttpRequestParam;
-import com.bailun.core.http.NetworkTransmissionDefine;
-import com.bailun.core.http.NetworkTransmissionUtils;
+import com.bailun.core.http.BLHttpDefine;
+import com.bailun.core.http.BLHttpUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final TextView textView = findViewById(R.id.text);
-        HttpRequestParam param = new HttpRequestParam("https://www.baidu.com", NetworkTransmissionDefine.HttpMethod.GET);
-        NetworkTransmissionUtils.getInstance().httpRequest(param, new HttpCallback() {
+        HttpRequestParam param = new HttpRequestParam("https://www.baidu.com", BLHttpDefine.Method.GET);
+        BLHttpUtils.getInstance().httpRequest(param, new HttpCallback() {
             @Override
             public void onSuccess(final String t) {
                 textView.setText(t);

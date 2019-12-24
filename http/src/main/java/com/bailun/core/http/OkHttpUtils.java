@@ -1,6 +1,5 @@
 package com.bailun.core.http;
 
-import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -26,6 +25,8 @@ class OkHttpUtils implements HttpUtils {
 
     private OkHttpClient client = new OkHttpClient.Builder().build();
 
+    private Handler handler = new Handler(Looper.getMainLooper());
+
     @Override
     public void syncHttp(HttpRequestParam httpRequestParam, HttpCallback callback) {
         Call call = client.newCall(paramToRequest(httpRequestParam));
@@ -33,7 +34,7 @@ class OkHttpUtils implements HttpUtils {
             Response response = call.execute();
             callback.onSuccess(response.message());
         } catch (IOException e) {
-            callback.onError(NetworkTransmissionDefine.ResponseResult.UNKNOWN, e.toString());
+            callback.onError(BLHttpDefine.ResponseCode.UNKNOWN, e.toString());
         } finally {
             callback.onCompleted();
         }
@@ -42,14 +43,14 @@ class OkHttpUtils implements HttpUtils {
     @Override
     public void asynHttp(HttpRequestParam httpRequestParam, final HttpCallback callback) {
         Call call = client.newCall(paramToRequest(httpRequestParam));
-        final Handler handler = new Handler(Looper.getMainLooper());
+
         call.enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull final IOException e) {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        callback.onError(NetworkTransmissionDefine.ResponseResult.UNKNOWN, e.toString());
+                        callback.onError(BLHttpDefine.ResponseCode.UNKNOWN, e.toString());
                         callback.onCompleted();
                     }
                 });
@@ -94,19 +95,19 @@ class OkHttpUtils implements HttpUtils {
     private static String getMethodName(int type) {
         String name = null;
         switch (type) {
-            case NetworkTransmissionDefine.HttpMethod.POST:
+            case BLHttpDefine.Method.POST:
                 name = "POST";
                 break;
-            case NetworkTransmissionDefine.HttpMethod.PUT:
+            case BLHttpDefine.Method.PUT:
                 name = "PUT";
                 break;
-            case NetworkTransmissionDefine.HttpMethod.HEAD:
+            case BLHttpDefine.Method.HEAD:
                 name = "HEAD";
                 break;
-            case NetworkTransmissionDefine.HttpMethod.DELETE:
+            case BLHttpDefine.Method.DELETE:
                 name = "DELETE";
                 break;
-            case NetworkTransmissionDefine.HttpMethod.GET:
+            case BLHttpDefine.Method.GET:
             default:
                 name = "GET";
                 break;

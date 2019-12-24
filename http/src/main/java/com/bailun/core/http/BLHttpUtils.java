@@ -4,22 +4,22 @@ package com.bailun.core.http;
  * create by wangjing on 2019/12/6 0006
  * description:
  */
-public class NetworkTransmissionUtils {
+public class BLHttpUtils {
 
-    private static NetworkTransmissionUtils m_Instance = null;
+    private static BLHttpUtils m_Instance = null;
 
-    public static NetworkTransmissionUtils getInstance() {
+    public static BLHttpUtils getInstance() {
         if (null == m_Instance) {
-            synchronized (NetworkTransmissionUtils.class) {
+            synchronized (BLHttpUtils.class) {
                 if (null == m_Instance) {
-                    m_Instance = new NetworkTransmissionUtils();
+                    m_Instance = new BLHttpUtils();
                 }
             }
         }
         return m_Instance;
     }
 
-    private NetworkTransmissionUtils(){
+    private BLHttpUtils(){
 
     }
 

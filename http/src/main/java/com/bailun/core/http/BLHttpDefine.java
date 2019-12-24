@@ -11,8 +11,8 @@ package com.bailun.core.http;
  * History:
  *          kingpang 2017/9/27 v1.0 Create 
  *************************************************/
-public class NetworkTransmissionDefine {
-    public static class HttpMethod {
+public class BLHttpDefine {
+    public static class Method {
         public static final int POST = 1;
         public static final int GET = 2;
         public static final int PUT = 3;
@@ -21,7 +21,7 @@ public class NetworkTransmissionDefine {
         public static final int OPTIONS = 6;
     }
 
-    public static class ResponseResult {
+    public static class ResponseCode {
         public static final int UNKNOWN = -1;
         public static final int SUCCESS = 0;
         public static final int FAILED = 1;
