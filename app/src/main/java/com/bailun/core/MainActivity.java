@@ -1,6 +1,7 @@
 package com.bailun.core;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.text.HtmlCompat;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         BLHttpUtils.getInstance().httpRequest(param, new HttpCallback() {
             @Override
             public void onSuccess(final String t) {
-                textView.setText(t);
+                textView.setText(HtmlCompat.fromHtml(t, 0));
             }
 
             @Override

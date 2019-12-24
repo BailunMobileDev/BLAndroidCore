@@ -32,7 +32,7 @@ class OkHttpUtils implements HttpUtils {
         Call call = client.newCall(paramToRequest(httpRequestParam));
         try {
             Response response = call.execute();
-            callback.onSuccess(response.message());
+            callback.onSuccess(response.body().string());
         } catch (IOException e) {
             callback.onError(BLHttpDefine.ResponseCode.UNKNOWN, e.toString());
         } finally {
@@ -58,10 +58,11 @@ class OkHttpUtils implements HttpUtils {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
+                final String body = response.body().string();
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        callback.onSuccess(response.message());
+                        callback.onSuccess(body);
                         callback.onCompleted();
                     }
                 });
